@@ -46,7 +46,7 @@ def output (thread, tag, value):
 
 def getInputs ():
     with MsgLock:
-        return copy.copy(comms)
+        return Obj(copy.copy(comms))
 
 def printSync (msg):
     with IOLock:
@@ -79,13 +79,11 @@ def addThreadFromSource (source, name):
 
 # Create threads
 import OpenCV
-OpenCV = OpenCV.Class
-addThreadFromClass(OpenCV, "opencv")
+addThreadFromSource(OpenCV, "opencv")
 import Servo
-Servo = Servo.Class
-addThreadFromClass(Servo, "servo")
-import func
-addThreadFromSource(func, "audio")
+addThreadFromSource(Servo, "servo")
+import Sound
+addThreadFromSource(Sound, "sound")
 
 # Start threads
 for t in threads:
