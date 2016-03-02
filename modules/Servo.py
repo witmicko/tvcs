@@ -18,14 +18,17 @@ def init(self):
 
 def run (self):
     # put your init and global variables here
+    moving = False
 
     # main loop
     while 1:
         # put your logic here
         # you can use: output, getInputs, message 
         facePos = self.getInputs().facePos
-        if (facePos.x > 0): self.output("servo", Obj("moving", True))
-        else: self.output("servo", Obj("moving", False))
+        if (facePos.x > 0): moving = True
+        else: moving = False
+
+        self.output("servo", Obj("moving", moving))
 
         # if you want to limit framerate, put it at the end
         time.sleep(1)

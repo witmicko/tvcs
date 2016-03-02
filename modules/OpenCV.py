@@ -26,6 +26,7 @@ def run (self):
         # put your logic here
         # you can use: output, getInputs, message 
         self.output("facePos", Obj("x", xPos, "y", yPos))
+        if (xPos < 0): self.message("face is in negative x!")
         xPos *= -1
         yPos *= -1
 
