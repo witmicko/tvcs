@@ -16,12 +16,12 @@ def init(self):
   # put your self.registerOutput here
 
 def run (self):
-  # put your init and global variables here
+    # put your init and global variables here
   
-  # main loop
-  while 1:
-    # put your logic here
-    # you can use: output, getInputs, message 
+    # main loop
+    while 1:
+        # put your logic here
+        # you can use: output, getInputs, message 
 
-    # if you want to limit framerate, put it at the end
-    time.sleep(0.2)
+        # if you want to limit framerate, put it at the end
+        time.sleep(0.2)

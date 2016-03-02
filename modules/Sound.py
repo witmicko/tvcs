@@ -13,20 +13,23 @@ Obj = DynamicObjectV2.Class
 # put your imports here
 
 def init(self):
-  # put your self.registerOutput here
-  self.registerOutput("audio", Obj("playing", False))
+    # put your self.registerOutput here
+    self.registerOutput("audio", Obj("playing", False))
 
 def run (self):
-  # put your init and global variables here
+    # put your init and global variables here
+    playing = False
 
-  # main loop
-  while 1:
-    # put your logic here
-    # you can use: output, getInputs, message 
-    servo = self.getInputs().servo
+    # main loop
+    while 1:
+        # put your logic here
+        # you can use: output, getInputs, message 
+        servo = self.getInputs().servo
 
-    if (servo.moving): self.output("audio", Obj("playing", True))
-    else: self.output("audio", Obj("playing", False))
+        if (servo.moving): playing = True
+        else: playing = False
 
-    # if you want to limit framerate, put it at the end
-    time.sleep(0.5)
+        self.output("audio", Obj("playing", playing))
+
+        # if you want to limit framerate, put it at the end
+        time.sleep(0.5)

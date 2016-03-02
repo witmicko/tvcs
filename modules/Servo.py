@@ -13,19 +13,19 @@ Obj = DynamicObjectV2.Class
 # put your imports here
 
 def init(self):
-  # put your self.registerOutput here
-  self.registerOutput("servo", Obj("moving", False))
+    # put your self.registerOutput here
+    self.registerOutput("servo", Obj("moving", False))
 
 def run (self):
-  # put your init and global variables here
+    # put your init and global variables here
 
-  # main loop
-  while 1:
-    # put your logic here
-    # you can use: output, getInputs, message 
-    facePos = self.getInputs().facePos
-    if (facePos.x > 0): self.output("servo", Obj("moving", True))
-    else: self.output("servo", Obj("moving", False))
+    # main loop
+    while 1:
+        # put your logic here
+        # you can use: output, getInputs, message 
+        facePos = self.getInputs().facePos
+        if (facePos.x > 0): self.output("servo", Obj("moving", True))
+        else: self.output("servo", Obj("moving", False))
 
-    # if you want to limit framerate, put it at the end
-    time.sleep(1)
+        # if you want to limit framerate, put it at the end
+        time.sleep(1)
