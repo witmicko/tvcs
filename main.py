@@ -78,12 +78,27 @@ def addThreadFromSource (source, name):
     threads[name] = C(name, API)
 
 # Create threads
-import OpenCV
-addThreadFromSource(OpenCV, "opencv")
-import Servo
-addThreadFromSource(Servo, "servo")
-import Sound
-addThreadFromSource(Sound, "sound")
+import ModuleList
+
+for moduleName in ModuleList.fromSource:
+    try:
+        moduleSource = __import__(moduleName)
+        getattr(moduleSource, "run")
+        addThreadFromSource(moduleSource, moduleName)
+    except ImportError:
+        printSync("WARNING: Could not load module '{}' - module does not exist!".format(moduleName))
+    except AttributeError:
+        printSync("WARNING: Could not load module '{}' - module does not have 'run' function!".format(moduleName))
+
+for moduleName in ModuleList.fromClass:
+    try:
+        moduleClass = __import__(moduleName)
+        getattr(moduleClass, "Class")
+        addThreadFromClass(moduleClass.Class, moduleName)
+    except ImportError:
+        printSync("WARNING: Could not load module '{}' - module does not exist!".format(moduleName))
+    except AttributeError:
+        printSync("WARNING: Could not load module '{}' - module does not have a 'Class'!".format(moduleName))
 
 # Start threads
 for t in threads:

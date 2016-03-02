@@ -4,6 +4,7 @@ import collections
 import copy
 
 # TODO: fix behaviour of update
+# TODO: Support DynamicObjectV1
 class Class(dict):
     def __init__(self, *args):
         self.__data__ = collections.OrderedDict()
