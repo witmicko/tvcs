@@ -1,14 +1,14 @@
 #!/usr/bin/python
 
-import DynamicObjectV2
-Obj = DynamicObjectV2.Class
-
 import time
 
 # import from parent directory
 import sys
 import os.path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
+
+import DynamicObjectV2
+Obj = DynamicObjectV2.Class
 
 def run (self):
   self.registerOutput("audio", Obj("playing", False))
