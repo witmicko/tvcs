@@ -11,7 +11,6 @@ class Class(dict):
 
         self.extendInternal(args)
 
-
     def __getattr__ (self, attr, special=False):
         if (special): return self.get(attr)
         if (attr[:2] == "__"): return self.get(attr)
@@ -91,3 +90,9 @@ class Class(dict):
 
     def __reduce_ex__ (self, x):
         return self.__data__.__reduce_ex__(x)
+
+    def __vars__(self):
+        arr = []
+        for field in self.__data__:
+            arr.append(field)
+        return arr

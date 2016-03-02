@@ -15,9 +15,9 @@ class Class (threading.Thread):
         self.name = name
         self.ipc = Obj()
         self.ipc.extend(API)
-        
+
         # make all functions accessible by default
-        for key in vars(self.ipc):
+        for key in self.ipc.__vars__():
             setattr(self, key, getattr(self.ipc, key))
 
         # overwriting functions for convenience (and security) - abstracting the 'self' out
