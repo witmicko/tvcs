@@ -10,15 +10,21 @@ import time
 import IPCThread
 IPCThread = IPCThread.Class
 
-import DynamicObject
+# put your imports here
 
 class Class (IPCThread):
 
     def __init__(self, name, API):
         IPCThread.__init__(self, name, API)
-        self.registerOutput("audio2", {"playing": False})
 
     def run(self):
+        # put your init and global variab.les here - global variables need 'self.' in front of it
+
+        # put your self.registerOutput here
+
         while 1:
-            self.output("audio2", {"playing": True})
+            # put your logic here
+            # you can use: output, getInputs, message 
+
+            # if you want to limit framerate, put it at the end
             time.sleep(0.2)
