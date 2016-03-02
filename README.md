@@ -1,3 +1,3 @@
-# rpi-follower
+# tvcs
+Tag-Value Comms System - Python driven multithread communicator
 
-OpenCV, Servo, Audio on RaspberryPi 2
