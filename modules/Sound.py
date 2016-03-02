@@ -10,10 +10,23 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.
 import DynamicObjectV2
 Obj = DynamicObjectV2.Class
 
-def run (self):
+# put your imports here
+
+def init(self):
+  # put your self.registerOutput here
   self.registerOutput("audio", Obj("playing", False))
+
+def run (self):
+  # put your init and global variables here
+
+  # main loop
   while 1:
-    time.sleep(0.5)
+    # put your logic here
+    # you can use: output, getInputs, message 
     servo = self.getInputs().servo
+
     if (servo.moving): self.output("audio", Obj("playing", True))
     else: self.output("audio", Obj("playing", False))
+
+    # if you want to limit framerate, put it at the end
+    time.sleep(0.5)

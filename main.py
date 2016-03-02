@@ -72,6 +72,8 @@ def addThreadFromSource (source, name):
     class C (IPCThread):
         def __init__(self, name, API):
             IPCThread.__init__(self, name, API)
+            source.init(self)
+
         def run(self):
             source.run(self)
 
@@ -83,12 +85,13 @@ import ModuleList
 for moduleName in ModuleList.fromSource:
     try:
         moduleSource = __import__(moduleName)
+        getattr(moduleSource, "init")
         getattr(moduleSource, "run")
         addThreadFromSource(moduleSource, moduleName)
     except ImportError:
         printSync("WARNING: Could not load module '{}' - module does not exist!".format(moduleName))
     except AttributeError:
-        printSync("WARNING: Could not load module '{}' - module does not have 'run' function!".format(moduleName))
+        printSync("WARNING: Could not load module '{}' - module does not have 'init' or 'run' function!".format(moduleName))
 
 for moduleName in ModuleList.fromClass:
     try:

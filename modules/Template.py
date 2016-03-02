@@ -12,11 +12,12 @@ Obj = DynamicObjectV2.Class
 
 # put your imports here
 
+def init(self):
+  # put your self.registerOutput here
+
 def run (self):
   # put your init and global variables here
   
-  # put your self.registerOutput here
-
   # main loop
   while 1:
     # put your logic here

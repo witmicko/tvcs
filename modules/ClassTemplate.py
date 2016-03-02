@@ -16,11 +16,11 @@ class Class (IPCThread):
 
     def __init__(self, name, API):
         IPCThread.__init__(self, name, API)
+        
+        # put your self.registerOutput here
 
     def run(self):
         # put your init and global variab.les here - global variables need 'self.' in front of it
-
-        # put your self.registerOutput here
 
         while 1:
             # put your logic here

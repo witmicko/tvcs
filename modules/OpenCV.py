@@ -1,7 +1,6 @@
 #!/usr/bin/python
 
 import time
-import random
 
 # import from parent directory
 import sys
@@ -11,18 +10,24 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.
 import DynamicObjectV2
 Obj = DynamicObjectV2.Class
 
-def run (self):
-  toggle = False
+# put your imports here
 
+def init(self):
+  # put your self.registerOutput here
   self.registerOutput("facePos", Obj("x", 0, "y", 0))
+
+def run (self):
+  # put your init and global variables here
+  xPos = 10
+  yPos = 10
+
+  # main loop
   while 1:
-    if (toggle): minValue = 0
-    else: minValue = -90
+    # put your logic here
+    # you can use: output, getInputs, message 
+    self.output("facePos", Obj("x", xPos, "y", yPos))
+    xPos *= -1
+    yPos *= -1
 
-    if (toggle): maxValue = 90
-    else: maxValue = 0
-    
-    toggle = not toggle
-
-    self.output("facePos", Obj("x", random.randint(minValue, maxValue), "y", random.randint(-90, 90)))
+    # if you want to limit framerate, put it at the end
     time.sleep(3)
