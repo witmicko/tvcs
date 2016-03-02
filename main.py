@@ -79,6 +79,8 @@ def addThreadFromSource (source, name):
 
     threads[name] = C(name, API)
 
+printSync("\n\t\t\tTVCS v0.1.0\n")
+
 # Create threads
 import ModuleList
 
@@ -102,6 +104,7 @@ for moduleName in ModuleList.fromClass:
         raise Exception("ERROR: Could not load module '{}' - module does not exist!".format(moduleName))
     except AttributeError:
         raise Exception("ERROR: Could not load module '{}' - module does not have a 'Class'!".format(moduleName))
+
 
 # Start threads
 for t in threads:
