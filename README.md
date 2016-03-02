@@ -83,3 +83,4 @@ def run (self):
 ```
 if (xPos < 0): self.message("face is in negative x!")
 ```
+- type in `python main.py -debug` to run this setup.
