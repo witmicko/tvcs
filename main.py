@@ -89,9 +89,9 @@ for moduleName in ModuleList.fromSource:
         getattr(moduleSource, "run")
         addThreadFromSource(moduleSource, moduleName)
     except ImportError:
-        printSync("WARNING: Could not load module '{}' - module does not exist!".format(moduleName))
+        raise Exception("ERROR: Could not load module '{}' - module does not exist!".format(moduleName))
     except AttributeError:
-        printSync("WARNING: Could not load module '{}' - module does not have 'init' or 'run' function!".format(moduleName))
+        raise Exception("ERROR: Could not load module '{}' - module does not have 'init' or 'run' function!".format(moduleName))
 
 for moduleName in ModuleList.fromClass:
     try:
@@ -99,9 +99,9 @@ for moduleName in ModuleList.fromClass:
         getattr(moduleClass, "Class")
         addThreadFromClass(moduleClass.Class, moduleName)
     except ImportError:
-        printSync("WARNING: Could not load module '{}' - module does not exist!".format(moduleName))
+        raise Exception("ERROR: Could not load module '{}' - module does not exist!".format(moduleName))
     except AttributeError:
-        printSync("WARNING: Could not load module '{}' - module does not have a 'Class'!".format(moduleName))
+        raise Exception("ERROR: Could not load module '{}' - module does not have a 'Class'!".format(moduleName))
 
 # Start threads
 for t in threads:
