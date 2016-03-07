@@ -64,7 +64,8 @@ API = {
     "registerOutput": registerOutput,
     "getInputs": getInputs,
     "output": output,
-    "message": message
+    "message": message,
+    "flags": flags
 }
 
 # legacy
