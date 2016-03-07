@@ -65,7 +65,7 @@ API = {
     "getInputs": getInputs,
     "output": output,
     "message": message,
-    "flags": flags
+    "flags": Obj(copy.copy(flags))
 }
 
 # legacy
