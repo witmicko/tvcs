@@ -16,8 +16,12 @@ MsgLock = threading.RLock()
 IOLock = threading.RLock()
 
 # enable / disable messages
-logComms = False
-if (len(sys.argv) > 1 and sys.argv[1] == '-debug'): logComms = True
+
+flags = Obj()
+
+for arg in sys.argv:
+    if (arg[:1] == "-"):
+        flags[arg[1:]] = True
 
 threads = {}
 comms = Obj()
@@ -42,7 +46,7 @@ def output (thread, tag, value):
         comms[tag].extend(value)
         info = Obj(copy.copy(comms[tag]))
         del info['owner']
-        if (logComms): print(" OUTPUT by {}: [{} tag] {}".format(thread.name, tag, info))
+        if (flags.debug): print(" OUTPUT by {}: [{} tag] {}".format(thread.name, tag, info))
 
 def getInputs ():
     with MsgLock:
