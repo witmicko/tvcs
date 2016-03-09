@@ -15,13 +15,18 @@ Obj = DynamicObjectV2.Class
 MsgLock = threading.RLock()
 IOLock = threading.RLock()
 
-# enable / disable messages
-
+# process flags
+# -debug = show messages
+# -test [testnames]
 flags = Obj()
+current = None
 
-for arg in sys.argv:
+for arg in sys.argv[1:]: #skips first which is main.py
     if (arg[:1] == "-"):
-        flags[arg[1:]] = True
+        current = Obj()
+        flags[arg[1:]] = current
+    else:
+        current[arg] = True
 
 threads = {}
 comms = Obj()
