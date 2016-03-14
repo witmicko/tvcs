@@ -25,6 +25,7 @@ def run (self):
         # put your logic here
         # you can use: output, getInputs, message 
         servo = self.getInputs().servo
+        self.message(servo)
 
         if (servo.moving): playing = True
         else: playing = False

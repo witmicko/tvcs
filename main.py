@@ -27,6 +27,7 @@ for arg in sys.argv[1:]: #skips first which is main.py
         flags[arg[1:]] = current
     else:
         current[arg] = True
+        
 
 threads = {}
 comms = Obj()
@@ -55,7 +56,12 @@ def output (thread, tag, value):
 
 def getInputs ():
     with MsgLock:
-        return Obj(copy.copy(comms))
+        info = Obj({})
+        keys = comms.__vars__()
+        for key in keys:
+            info[key] = Obj(copy.copy(comms[key]))
+            del info[key]["owner"]
+        return info
 
 def printSync (msg):
     with IOLock:
@@ -115,11 +121,14 @@ for moduleName in ModuleList.fromClass:
     except AttributeError:
         raise Exception("ERROR: Could not load module '{}' - module does not have a 'Class'!".format(moduleName))
 
-
-# Start threads
-for t in threads:
-    threads[t].daemon = True # make sure threads close with main thread
-    threads[t].start()
+if (flags.test):
+    for testname in flags.test.__vars__():
+        pass
+else:
+    # Start threads
+    for t in threads:
+        threads[t].daemon = True # make sure threads close with main thread
+        threads[t].start()
 
 # make sure main thread dies only on ctrl-c 
 while 1:
