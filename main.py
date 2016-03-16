@@ -70,18 +70,18 @@ def printSync (msg):
 def message (thread, msg):
     printSync("MESSAGE by {}: {}".format(thread.name, msg))
 
-# constant
-API = {
-    "registerOutput": registerOutput,
-    "getInputs": getInputs,
-    "output": output,
-    "message": message,
-    "flags": Obj(copy.copy(flags))
-}
+def makeAPI ():
+    return {
+        "registerOutput": registerOutput,
+        "getInputs": getInputs,
+        "output": output,
+        "message": message,
+        "flags": Obj(copy.copy(flags))
+    }
 
 # legacy
 def addThreadFromClass (Class, name):
-    threads[name] = Class(name, API)
+    threads[name] = Class(name, makeAPI())
 
 def addThreadFromSource (source, name):
 
@@ -93,42 +93,49 @@ def addThreadFromSource (source, name):
         def run(self):
             source.run(self)
 
-    threads[name] = C(name, API)
+    threads[name] = C(name, makeAPI())
 
 printSync("\n\t\t\tTVCS v0.1.0\n")
 
 # Create threads
 import ModuleList
 
-for moduleName in ModuleList.fromSource:
-    try:
-        moduleSource = __import__(moduleName)
-        getattr(moduleSource, "init")
-        getattr(moduleSource, "run")
-        addThreadFromSource(moduleSource, moduleName)
-    except ImportError:
-        raise Exception("ERROR: Could not load module '{}' - module does not exist!".format(moduleName))
-    except AttributeError:
-        raise Exception("ERROR: Could not load module '{}' - module does not have 'init' or 'run' function!".format(moduleName))
-
-for moduleName in ModuleList.fromClass:
-    try:
-        moduleClass = __import__(moduleName)
-        getattr(moduleClass, "Class")
-        addThreadFromClass(moduleClass.Class, moduleName)
-    except ImportError:
-        raise Exception("ERROR: Could not load module '{}' - module does not exist!".format(moduleName))
-    except AttributeError:
-        raise Exception("ERROR: Could not load module '{}' - module does not have a 'Class'!".format(moduleName))
-
 if (flags.test):
-    for testname in flags.test.__vars__():
-        pass
+    moduleName = flags.test.__vars__()
+    if (len(moduleName) > 0): moduleName = moduleName[0]
+    else: raise Exception("ERROR: Could not load test - no test specified!")
+    
+    moduleSource = __import__(moduleName)
+    addThreadFromSource(moduleSource, moduleName)
+    moduleName = "Test-" + moduleName
+    moduleSource = __import__(moduleName)
+    addThreadFromSource(moduleSource, moduleName)
 else:
-    # Start threads
-    for t in threads:
-        threads[t].daemon = True # make sure threads close with main thread
-        threads[t].start()
+    for moduleName in ModuleList.fromSource:
+        try:
+            moduleSource = __import__(moduleName)
+            getattr(moduleSource, "init")
+            getattr(moduleSource, "run")
+            addThreadFromSource(moduleSource, moduleName)
+        except ImportError:
+            raise Exception("ERROR: Could not load module '{}' - module does not exist!".format(moduleName))
+        except AttributeError:
+            raise Exception("ERROR: Could not load module '{}' - module does not have 'init' or 'run' function!".format(moduleName))
+
+    for moduleName in ModuleList.fromClass:
+        try:
+            moduleClass = __import__(moduleName)
+            getattr(moduleClass, "Class")
+            addThreadFromClass(moduleClass.Class, moduleName)
+        except ImportError:
+            raise Exception("ERROR: Could not load module '{}' - module does not exist!".format(moduleName))
+        except AttributeError:
+            raise Exception("ERROR: Could not load module '{}' - module does not have a 'Class'!".format(moduleName))
+
+# Start threads
+for t in threads:
+    threads[t].daemon = True # make sure threads close with main thread
+    threads[t].start()
 
 # make sure main thread dies only on ctrl-c 
 while 1:

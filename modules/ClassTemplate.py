@@ -24,7 +24,7 @@ class Class (IPCThread):
 
         while 1:
             # put your logic here
-            # you can use: output, getInputs, message 
+            # you can use: output, getInputs, message, flags
 
             # if you want to limit framerate, put it at the end
             time.sleep(0.2)
