@@ -15,6 +15,8 @@ Obj = DynamicObjectV2.Class
 MsgLock = threading.RLock()
 IOLock = threading.RLock()
 
+version = open('README.md').read().split('\n')[0].split('# ')[1]
+
 # process flags
 # -debug = show messages
 # -test [testnames]
@@ -96,7 +98,7 @@ def addThreadFromSource (source, name):
 
     threads[name] = C(name, makeAPI())
 
-printSync("\n\t\t\tTVCS v0.1.0\n")
+printSync("\n\t\t\tTVCS {}\n".format(version))
 
 # Create threads
 import ModuleList
