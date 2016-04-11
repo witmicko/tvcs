@@ -13,7 +13,8 @@ Obj = DynamicObjectV2.Class
 # put your imports here
 
 def init(self):
-  # put your self.registerOutput here
+    # put your self.registerOutput here
+    self.registerOutput("sometag", Obj("somefield1", "somevalue", "somefield2", 0))
 
 def run (self):
     # put your init and global variables here
