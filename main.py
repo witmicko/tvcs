@@ -113,13 +113,15 @@ if (flags.test):
     addThreadFromSource(moduleSource, moduleName)
 else:
     for moduleName in ModuleList.fromSource:
+        moduleSource = None
         try:
             moduleSource = __import__(moduleName)
+        except Exception as e:
+            raise Exception("ERROR: Could not load module '{}' - Error: {}".format(moduleName, e))
+        try:
             getattr(moduleSource, "init")
             getattr(moduleSource, "run")
             addThreadFromSource(moduleSource, moduleName)
-        except ImportError:
-            raise Exception("ERROR: Could not load module '{}' - module does not exist!".format(moduleName))
         except AttributeError:
             raise Exception("ERROR: Could not load module '{}' - module does not have 'init' or 'run' function!".format(moduleName))
 
