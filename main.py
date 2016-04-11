@@ -47,6 +47,7 @@ def registerOutput (owner, tag, default):
 
 def output (thread, tag, value):
     with MsgLock:
+        if (not comms[tag]): return printSync("WARNING: '{}' cannot output with '{}' tag. ACCESS DENIED. Tag not registered.".format(thread.name, tag))
         if (comms[tag].owner != thread):
             return printSync("WARNING: '{}' cannot output with '{}' tag. ACCESS DENIED. Thread '{}' has tag ownership.".format(thread.name, tag, comms[tag].owner.name))
         comms[tag].extend(value)
