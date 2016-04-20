@@ -8,6 +8,7 @@ import DynamicObjectV2
 Obj = DynamicObjectV2.Class
 
 fromSource = [
+  'Servos'
 ]
 
 fromClass = [

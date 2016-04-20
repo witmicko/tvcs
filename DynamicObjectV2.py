@@ -16,6 +16,7 @@ class Class(dict):
         if (attr[:2] == "__"): return self.get(attr)
         else: return self.getData(attr)
 
+
     def __setattr__(self, key, value):
         if (key[:2] == "__"):
             updObj = {}
